@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "squizlabs/PHP_CodeSniffer": "^2.6"
+    }
+}

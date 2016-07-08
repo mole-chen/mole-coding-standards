@@ -1,0 +1,26 @@
+#! /usr/bin/env php
+<?php
+$args = $_SERVER['argv'];
+if (count($args) < 2) {
+    echo sprintf("Usage: %s <filename>", basename($args[0])) . PHP_EOL;
+    exit(1);
+}
+
+$file = $args[1];
+if (!realpath($file)) {
+    echo sprintf("File %s is not exist.", $file) . PHP_EOL;
+    exit(1);
+}
+
+$content = file_get_contents($file);
+$tokens = token_get_all($content);
+$res = [];
+foreach ($tokens as &$token) {
+    if (is_array($token)) {
+        $token[0] = token_name($token[0]);
+        $token[1] = str_replace("\n", '#', $token[1]);
+    }
+}
+var_export($tokens);
+echo PHP_EOL;
+exit(0);
