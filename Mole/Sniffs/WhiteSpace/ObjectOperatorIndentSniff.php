@@ -14,7 +14,7 @@ class Mole_Sniffs_WhiteSpace_ObjectOperatorIndentSniff implements PHP_CodeSniffe
         $tokens = $phpcsFile->getTokens();
 
         if ($tokens[($stackPtr + 1)]['code'] === T_WHITESPACE) {
-            $error = 'Object operator must not contain whitespace after it.';
+            $error = 'Object operator  must not contain whitespace after it.';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NoAfterSpace');
             if ($fix === true) {
                 $phpcsFile->fixer->replaceToken(($stackPtr + 1), '');
@@ -24,7 +24,7 @@ class Mole_Sniffs_WhiteSpace_ObjectOperatorIndentSniff implements PHP_CodeSniffe
         $varPtr = $phpcsFile->findFirstOnLine(T_WHITESPACE, $stackPtr, true);
         if ($varPtr !== $stackPtr) {
             if ($tokens[($stackPtr - 1)]['code'] === T_WHITESPACE) {
-                $error = 'Object operator must not contain whitespace before it.';
+                $error = 'Object operator -> must not contain whitespace before it.';
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NoBeforeSpace');
                 if ($fix === true) {
                     $phpcsFile->fixer->replaceToken(($stackPtr - 1), '');
@@ -35,6 +35,12 @@ class Mole_Sniffs_WhiteSpace_ObjectOperatorIndentSniff implements PHP_CodeSniffe
 
         $varPtr = $phpcsFile->findFirstOnLine(T_WHITESPACE, $stackPtr);
         if ($varPtr === false) {
+            return;
+        }
+
+        // Skip for embedded PHP
+        $varPtr = $phpcsFile->findPrevious(T_OPEN_TAG, ($stackPtr - 1));
+        if ($varPtr !== false && $phpcsFile->findPrevious(T_WHITESPACE, ($varPtr - 1), null, true) !== false) {
             return;
         }
 

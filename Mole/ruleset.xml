@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="Mole">
   <description>Mole Code Style</description>
+
+  <rule ref="Mole.NamingConventions.ValidVariableName"/>
+  <rule ref="Mole.NamingConventions.ValidVariableName.ContainsNumbers">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Mole.NamingConventions.ValidVariableName.StringVarContainsNumbers">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Mole.NamingConventions.ValidVariableName.ObjectNotCamelCaps">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Mole.WhiteSpace.FunctionSpacing">
+    <properties>
+      <property name="spacing" value="1"/>
+    </properties>
+  </rule>
+  <rule ref="Mole.WhiteSpace.FunctionSpacing.Before">
+    <severity>0</severity>
+  </rule>
 </ruleset>
