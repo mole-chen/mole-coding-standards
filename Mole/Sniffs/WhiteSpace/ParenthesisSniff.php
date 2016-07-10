@@ -29,8 +29,8 @@ class Mole_Sniffs_WhiteSpace_ParenthesisSniff implements PHP_CodeSniffer_Sniff
                 $data = array($found);
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NoSpaceAfterOpenParenthesis', $data);
                 if ($fix === true) {
-                    if (strpos($tokens[$next]['content'], "\n") !== false) {
-                        $phpcsFile->fixer->replaceToken($next, "\n");
+                    if (strpos($tokens[$next]['content'], $phpcsFile->eolChar) !== false) {
+                        $phpcsFile->fixer->replaceToken($next, $phpcsFile->eolChar);
                     } else {
                         $phpcsFile->fixer->replaceToken($next, '');
                     }

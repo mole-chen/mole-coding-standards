@@ -99,11 +99,11 @@ class Mole_Sniffs_WhiteSpace_ScopeClosingBraceSniff implements PHP_CodeSniffer_S
             $fix = $phpcsFile->addFixableError($error, $scopeEnd, 'Indent', $data);
             if ($fix === true) {
                 $diff = ($startColumn - $braceIndent);
+                $varPtr = $phpcsFile->findFirstOnLine(array(T_INLINE_HTML, T_WHITESPACE), $scopeEnd, true);
                 if ($diff > 0) {
-                    $varPtr = $phpcsFile->findFirstOnLine(array(T_INLINE_HTML, T_WHITESPACE), $scopeEnd, true);
                     $phpcsFile->fixer->addContentBefore($varPtr, str_repeat(' ', $diff));
                 } else {
-                    $phpcsFile->fixer->substrToken(($scopeEnd - 1), 0, $diff);
+                    $phpcsFile->fixer->substrToken(($varPtr - 1), 0, $diff);
                 }
             }
         }//end if

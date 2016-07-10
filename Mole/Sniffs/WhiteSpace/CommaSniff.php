@@ -42,8 +42,8 @@ class Mole_Sniffs_WhiteSpace_CommaSniff implements PHP_CodeSniffer_Sniff
                 if ($found === 0) {
                     $phpcsFile->fixer->addContent($stackPtr, ' ');
                 } else {
-                    if ($found > 1 && strpos($tokens[$next]['content'], "\n") !== false) {
-                        $phpcsFile->fixer->replaceToken($next, "\n");
+                    if ($found > 1 && strpos($tokens[$next]['content'], $phpcsFile->eolChar) !== false) {
+                        $phpcsFile->fixer->replaceToken($next, $phpcsFile->eolChar);
                     } else {
                         $phpcsFile->fixer->replaceToken($next, ' ');
                     }

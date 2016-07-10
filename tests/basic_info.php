@@ -22,7 +22,6 @@ $this->title = Yii::t('app', 'Application Form');
 if (Yii::$app->user->getIdentity()->id_user_role == 4) {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'My Application'), 'url' => ['/loan/application']];
     $this->params['breadcrumbs'][] = $this->title;
-
 } else {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Applications'), 'url' => ['/application/index']];
     $this->params['breadcrumbs'][] = ['label' => Yii::t('app', Application::findOne($this->context->actionParams['id_application'])->application_name), 'url' => ['/application/view', 'id' => $this->context->actionParams['id_application']]];
@@ -53,10 +52,12 @@ $this->registerJs($js);
                         ]); ?>
                     </div>
                 </div>
-                <?php $form = ActiveForm::Begin([
+                <?php
+                $form = ActiveForm::Begin([
                     "fieldConfig" => [
                         "inputOptions" => ["disabled" => $isRead],
-                    ]]); ?>
+                    ]]);
+                    ?>
                 <div class="content-form-box">
                     <div class="form-body">
                         <div class="form-header-tp">
@@ -269,7 +270,7 @@ $this->registerJs($js);
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <?php endif; ?>
+                                <?php endif; ?>
 
                         <!-- CO-APPLICANT -->
 
@@ -523,7 +524,7 @@ $this->registerJs($js);
                                 </div>
                             </div>
                         </div>
-                        <?php endif; ?>
+                <?php endif; ?>
 
                     </div>
                     <div class="form-footer form-button-box-shadow">
@@ -555,11 +556,11 @@ $this->registerJs($js);
         $('label[for="appapplicant-primary-identification_number"]').after("<b>*</b>");
         $('label[for="appapplicant-primary-identification_state"]').after("<b>*</b>");
         $('label[for="appapplicant-primary-identification_expiration_date"]').after("<b>*</b>");
-        <?php if($coAppModel):?>
+        <?php if($coAppModel): ?>
         $('label[for="appapplicant-co-identification_number"]').after("<b>*</b>");
         $('label[for="appapplicant-co-identification_state"]').after("<b>*</b>");
         $('label[for="appapplicant-co-identification_expiration_date"]').after("<b>*</b>");
-        <?php endif;?>
+        <?php endif; ?>
         $(':radio').each(function (index) {
 
             if ($(this).attr('name') == 'AppApplicant-primary[identification_type]' && $(this).prop('checked') == true) {
